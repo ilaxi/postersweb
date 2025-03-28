@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Support</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: rgb(15, 15, 15);
+            --nav-bg: rgb(0, 0, 0);
+            --text-color: #ffffff;
+            --accent-color: rgba(26, 26, 26, 1);
+            --icon-standard-size: 24px; 
+            --highlight-color: #ccccce;
+            --border-color: rgba(255, 255, 255, 0.226);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--nav-bg);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .options-container {
+            padding: 20px;
+            width: 100%;
+            max-width: 600px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option-button {
+            background: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.2s, transform 0.1s;
+            text-align: center;
+            text-decoration: none;
+            display: block;
+        }
+
+        .option-button:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+        }
+
+        .back-link {
+            margin-top: 10px;
+            color: var(--highlight-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .team-title {
+            margin-bottom: 2rem;
+            font-family: 'Outfit', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .title-title {
+            font-family: 'Niramit', sans-serif;
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #ffffff;
+            text-align: center;
+            -webkit-text-stroke: 0.5px #ffffff;
+            letter-spacing: -1.9px;
+        }
+
+        .support-text {
+            text-align: center;
+            margin-top: -20px;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            line-height: 1.6;
+            padding: 0 20px;
+        }
+
+        .cards-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            width: 190px;
+            height: 254px;
+            border-radius: 20px;
+            position: relative;
+            padding: 1.8rem;
+            border: 2px solid rgba(255, 255, 255, 0.226);
+            transition: 0.5s ease-out;
+            overflow: visible;
+            cursor: pointer;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .card-details {
+            color: #FFFFFF;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            gap: 15px;
+            padding-top: 10px;
+        }
+
+        .kofi-button-container {
+            margin-top: -12px;
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            background: transparent;
+        }
+
+        .text-body {
+            color: #ccccce;
+            width: 100%;
+            text-align: center;
+            font-size: 0.9em;
+            line-height: 1.4;
+            overflow-wrap: break-word;
+        }
+
+        .text-title {
+            font-size: 1.05em;
+            font-weight: bold;
+            width: 100%;
+            text-align: center;
+            margin-bottom: 5px;
+            overflow-wrap: break-word;
+        }
+
+        .card:hover {
+            border-color: #FFFFFF;
+            box-shadow: 0 4px 18px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        .card:hover .card-button {
+            transform: translate(-50%, 50%);
+            opacity: 1;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }   
+
+        ::-webkit-scrollbar-track {
+            background: black;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+
+        .direct-donation-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgb(0, 0, 0);
+            color: #fff;
+            padding: 8px 16px;
+            font-size: 14px;
+            text-decoration: none;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            z-index: 1000;
+            transition: all 0.2s ease;
+            border: 2px solid rgba(255, 255, 255, 0.226);
+            cursor: pointer;
+        }
+        
+        .direct-donation-btn:hover {
+            background-color: var(--accent-color);
+            transform: translateY(-2px);
+            border-color: #FFFFFF;
+        }
+        
+        .kofi-cup {
+            width: 18px;
+            height: auto;
+        }
+
+        .kofi-panel {
+            position: fixed;
+            bottom: -600px; 
+            right: 20px;
+            width: 363px;
+            height: 550px;
+            background-color: #000000;
+            border-radius: 8px;
+            box-shadow: 0 0 15px rgba(0,0,0,0.3);
+            z-index: 5000;
+            transition: bottom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+        
+        .kofi-panel.open {
+            bottom: 20px;
+        }
+        
+        .close-panel {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 1002;
+            width: 25px;
+            height: 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            box-shadow: 0 0 5px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease;
+        }
+        
+        .close-panel:hover {
+            transform: scale(1.4);
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
+        .kofi-panel.open {
+            animation: slideUp 0.4s forwards;
+        }
+
+        @media (max-width: 768px) {
+            .site-logo {
+                font-size: 3rem;
+            }
+
+            .options-container {
+                max-width: 90%;
+                padding: 15px;
+            }
+
+            .support-text {
+                padding: 0 25px;
+                margin-bottom: 1.5rem;
+            }
+
+            .cards-container {
+                flex-direction: row;
+                justify-content: center;
+                padding: 0 15px;
+                gap: 15px;
+            }
+
+            .card {
+                width: 160px;
+                height: 230px;
+                padding: 1.4rem;
+            }
+
+            .text-title {
+                font-size: 0.85em;
+            }
+
+            .text-body {
+                font-size: 0.75em;
+            }
+            
+            .back-link {
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                margin: 0;
+                z-index: 1100;
+                font-size: 1rem;
+            }
+
+            .ads-card .text-title {
+                margin-top: 30px;
+            }
+
+            .card:nth-child(2) .text-title {
+                margin-top: 8px;
+            }
+        }
+
+        @media (max-width: 400px) {
+            .cards-container {
+                gap: 10px;
+            }
+            
+            .card {
+                width: 145px;
+                height: 220px;
+                padding: 1.2rem;
+            }
+            
+            .title-title {
+                font-size: 3rem;
+            }
+
+            .kofi-panel {
+                width: 90%;
+                right: 5%;
+                left: 5%;
+                height: 500px;
+            }
+
+            .direct-donation-btn {
+                bottom: 15px;
+                right: 15px;
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+            
+            .kofi-cup {
+                width: 15px;
+            }
+        }
+
+        @media (max-width: 360px) {
+            .kofi-panel {
+                height: 450px;
+            }
+            
+            .direct-donation-btn {
+                padding: 5px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="team-title">
+        <span class="title-title">posters</span> Support
+    </div>
+    
+    <div class="support-text">
+        <p>Thank you for considering supporting posters. This project is maintained solely through donations, so any help is greatly appreciated. We recommend visiting our blog on Ko-fi, where we provide detailed information about the website's status, rewards for donors, and other news. You can also support us without donating by voluntarily viewing an ad.</p>
+    </div>
+    
+    <div class="cards-container">
+        <a href="https://ko-fi.com/V7V71BK8G4" target="_blank" style="text-decoration: none; color: #FFFFFF;">
+            <div class="card">
+                <div class="card-details">
+                    <p class="text-title">Donate on Ko-fi</p>
+                    <p class="text-body">Support us with a donation through Ko-fi. Visit our page to see project updates and exclusive rewards for donors.</p>
+                    <div class="kofi-button-container">
+                        <script type='text/javascript' src='https://storage.ko-fi.com/cdn/widget/Widget_2.js'></script>
+                        <script type='text/javascript'>kofiwidget2.init('', 'transparent', 'V7V71BK8G4');kofiwidget2.draw();</script>
+                    </div>
+                </div>
+            </div>
+        </a>
+        
+        <div class="card ads-card">
+            <div class="card-details">
+                <p class="text-title" style="margin-bottom: 60px;">View ads</p>
+                <p class="text-body" style="margin-bottom: 93px;">soon...</p>
+            </div>
+        </div>
+    </div>
+    
+    <a href="{% url 'us' %}" class="back-link">← Back</a>
+
+    <button class="direct-donation-btn" id="openKofiModal">
+        <img src="https://storage.ko-fi.com/cdn/cup-border.png" alt="Ko-fi cup" class="kofi-cup">
+        Direct Donation
+    </button>
+
+    <div id="kofiPanel" class="kofi-panel">
+        <span class="close-panel">&times;</span>
+        <iframe id='kofiframe' src='https://ko-fi.com/V7V71BK8G4/?hidefeed=true&widget=true&embed=true&preview=true' style='border:none;width:100%;background:#ffffff;' height='550' title='Ko-fi Donation'></iframe>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const panel = document.getElementById('kofiPanel');
+            const btn = document.getElementById('openKofiModal');
+            const closeBtn = document.querySelector('.close-panel');
+            
+            btn.addEventListener('click', function() {
+                panel.classList.add('open');
+            });
+            
+            closeBtn.addEventListener('click', function() {
+                panel.classList.remove('open');
+            });
+            
+            document.addEventListener('click', function(event) {
+                if (!panel.contains(event.target) && event.target !== btn && !btn.contains(event.target)) {
+                    panel.classList.remove('open');
+                }
+            });
+            
+            document.addEventListener('keydown', function(event) {
+                if (event.key === 'Escape') {
+                    panel.classList.remove('open');
+                }
+            });
+        });
+    </script>
+</body>
+</html>

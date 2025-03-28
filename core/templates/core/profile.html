@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>perfil de {{ profile_user.username }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: rgba(15, 15, 14);
+            --nav-bg: rgba(0, 0, 0);
+            --text-color: #ffffff;
+            --accent-color: rgba(26, 26, 26, 1);
+            --icon-standard-size: 24px; 
+            --highlight-color: #ccccce;
+            --border-color: rgba(255, 255, 255, 0.226); 
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--nav-bg);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 327px 1fr 363px;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .left-nav, .right-nav {
+            background: var(--nav-bg);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .left-nav {
+            border: none;
+            border-right: 1px solid var(--border-color);
+            align-items: center;
+            text-align: center;
+        }
+        
+        .right-nav {
+            border: none;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .site-logo, .site-logo:link, .site-logo:visited {
+            font-size: 2.7rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: center;
+            padding: 5px 0;
+            margin-top: -30px;
+            font-family: 'Niramit', sans-serif;
+            letter-spacing: -1.9px;
+            color: #FFFFFF;
+            -webkit-text-stroke: 0.5px #FFFFFF;
+            text-decoration: none;
+            display: inline-block;
+            width: max-content;
+            position: relative;
+            left: 30%;
+            transform: translateX(-60%);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: var(--text-color);
+            font-size: 1.36rem; 
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-left: 70px; 
+        }
+
+        .nav-item:hover {
+            background: var(--accent-color);
+        }
+
+        .nav-item-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+            text-align: center;
+        }
+
+        .custom-icon {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            object-fit: contain;
+            vertical-align: middle;
+        }
+
+        .icon-casa {
+            width: 28px;
+            height: 29px;
+        }
+
+        .icon-chat {
+            width: calc(var(--icon-standard-size) * 1.1); 
+            height: var(--icon-standard-size);
+        }
+
+        .icon-perfil {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+        }
+
+        .icon-lapiz {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            transform: rotate(-10deg); 
+        }
+
+        .mobile-icon {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            object-fit: contain;
+        }
+
+        .main-content {
+            max-width: 683px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            margin-top: 8px;
+            position: relative; 
+            
+        }
+
+        .profile-header {
+            background: var(--nav-bg);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-header-top {
+            display: flex;
+            align-items: flex-start;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+        }
+
+        .profile-info {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .profile-name-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .profile-bio {
+            font-size: 0.95em;
+            line-height: 1.4;
+            word-wrap: break-word;
+            margin: 8px 0;
+        }
+
+        .profile-stats {
+            display: flex;
+            gap: 20px;
+            font-size: 0.9em;
+            color: #606264;
+        }
+
+        .profile-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .chat-button {
+            background: rgb(53, 53, 53);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .follow-button {
+            background: rgba(53, 53, 53);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .unfollow-button {
+            background: rgba(53, 53, 53);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 15px;
+            cursor: pointer;
+            font-size: 15px;
+        }
+
+        .post {
+            background: var(--nav-bg);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .post-content {
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+        }
+
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            max-height: auto;
+            object-fit: contain;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .post-nav {
+            background: #ccccce;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 7px 15px;
+            font-family: 'Niramit', sans-serif;
+            font-weight: bold;
+            color: #000000;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: 90%;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .post-nav:hover {
+            background: #FFFFFF;
+        } 
+
+        .action-btn {
+            background: #1d1d1d09;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: var(--accent-color);
+            border: 0.2px solid var(--border-color);
+        }
+
+        .liked {
+            background: var(--accent-color);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid var(--accent-color);
+            border-radius: 50%;
+            border-top-color: #ffffff;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #intersection-observer {
+            height: 10px;
+            margin-top: -10px;
+        }
+
+        .mobile-nav {
+            display: none;
+            border: none;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .link-preview {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .preview-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: opacity 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-card img {
+            width: 100%;
+            height: 250px;
+            height: auto;
+            object-fit: cover;
+            max-height: 363px;
+        }
+
+        .preview-info {
+            padding: 12px;
+        }
+
+        .preview-info h4 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--text-color);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }   
+
+        ::-webkit-scrollbar-track {
+            background: black;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+
+        .mobile-top-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-logo, .mobile-logo:link, .mobile-logo:visited {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: -13px;
+            font-family: 'Niramit', sans-serif;
+            letter-spacing: -2px;
+            color: #FFFFFF;
+            -webkit-text-stroke: 0.2px #FFFFFF;
+            text-decoration: none;
+            display: block;
+        }
+
+        .fab {
+            display: none;
+            position: fixed;
+            right: 20px;
+            bottom: 70px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #ccccce;
+            z-index: 102;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+        .h3de {
+            display: none;
+        }
+
+
+
+        @media (min-width: 1600px) {
+            .container {
+                grid-template-columns: 350px 1fr 350px;
+            }
+
+            .left-nav, .right-nav {
+                width: 350px;
+            }
+
+            .main-content {
+                max-width: 700px;
+            }
+
+            .site-logo, .site-logo:link, .site-logo:visited { 
+                font-size: 3rem;
+                left: 32%;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-only {
+                display: none !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 50px;
+                padding-bottom: 60px;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .profile-header {
+                padding: 12px;
+            }
+
+            .profile-header-top {
+                gap: 12px;
+            }
+
+            .profile-avatar {
+                width: 75px;
+                height: 75px;
+            }
+
+            .profile-info {
+                gap: 8px;
+            }
+
+            .profile-name-section {
+                font-size: 0.9em;
+            }
+
+            .profile-bio {
+                font-size: 0.85em;
+                margin: 6px 0;
+                max-width: calc(100vw - 110px);
+            }
+
+            .profile-stats {
+                font-size: 0.8em;
+                flex-wrap: wrap;
+                gap: 12px;
+            }
+
+            .profile-actions {
+                flex-wrap: wrap;
+                gap: 8px;
+            }
+
+            .chat-button, .follow-button, .unfollow-button {
+                font-size: 14px;
+                padding: 8px 15px;
+                flex: 1;
+                text-align: center;
+                min-width: 100px;
+            }
+
+            .left-nav, .right-nav {
+                display: none;
+                position: fixed;
+                bottom: 0px;
+                left: 0;
+                width: 100%;
+                height: auto;
+                max-height: 100vh;
+                z-index: 100;
+                border-top: 1px solid #ffffff20;
+                background: rgb(0, 0, 0);
+            }
+
+            .left-nav.active, .right-nav.active {
+                display: block;
+            }
+
+            .mobile-top-bar {
+                display: flex;
+            }
+
+            .fab {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: flex;
+                position: fixed;
+                height: 48px;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: rgb(0, 0, 0);
+                padding: 3.5px;
+                justify-content: space-around;
+                z-index: 101;
+            }
+
+            .mobile-nav a {
+                color: var(--text-color);
+                text-decoration: none;
+                font-size: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-icon.icon-casa {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .mobile-icon.icon-chat {
+                width: 28px;
+                height: 26px;
+            }
+            
+            .mobile-icon.icon-perfil {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .mobile-icon.icon-lapiz {
+                width: 24px;
+                height: 24px;
+                transform: rotate(-10deg);
+            }
+
+            .mobile-icon.icon-poster {
+                width: 26px;
+                height: 26px;
+            }
+
+            .main-content {
+                margin-top: 7px;
+                margin-bottom: 70px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class= "mobile-top-bar">
+        <a href="{% url 'us' %}" class="mobile-logo">posters</a>
+    </div>
+
+    <a href="{% url 'home' %}" class="fab" id="fab-post">
+        <img src=" /media/icons&art/LapízSF.png" alt="Post" class="icon-lapiz" id="fab-lapiz-icon" style="width: 24px; height: 24px;">
+</a>
+    <input type="hidden" id="csrfToken" value="{{ csrf_token }}">
+    <div class="container">
+        <nav class="left-nav">
+            <a href="{% url 'us' %}" class="site-logo">posters</a>
+            
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="nav-item" id="home-link">
+                    <span class="nav-item-icon">
+                        {% if request.resolver_match.url_name == 'home' %}
+                        <img src="/media/icons&art/CasaCF.png" alt="Home" class="custom-icon icon-casa">
+                        {% else %}
+                        <img src="/media/icons&art/CasaSF.png" alt="Home" class="custom-icon icon-casa">
+                        {% endif %}
+                    </span> Inicio
+                </a>
+                <a href="#" class="nav-item" id="chat-link">
+                    <span class="nav-item-icon">
+                        <img src="/media/icons&art/chatSF.png" alt="Chat" class="custom-icon icon-chat">
+                    </span> Chat
+                </a>
+                <a href="{% url 'profile' username=request.user.username %}" class="nav-item" id="profile-link">
+                    <span class="nav-item-icon">
+                        {% if request.resolver_match.url_name == 'profile' %}
+                        <img src="/media/icons&art/PerfilCF.png" alt="Profile" class="custom-icon icon-perfil">
+                        {% else %}
+                        <img src="/media/icons&art/PerfilSF.png" alt="Profile" class="custom-icon icon-perfil">
+                        {% endif %}
+                    </span> Perfil
+                </a>
+                <a href="{% url 'home' %}" class="post-nav" id="post-link">
+                    Postear
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="profile-header">
+                <div class="profile-header-top">
+                    {% if is_own_profile %}
+                    <label for="avatar-input" style="cursor: pointer;">
+                        <img src="{{ profile_user.avatar }}" alt="{{ profile_user.username }}" class="profile-avatar">
+                    </label>
+                    <form id="avatar-form" method="post" enctype="multipart/form-data" style="display: none;">
+                        {% csrf_token %}
+                        <input id="avatar-input" type="file" name="avatar" accept="image/*" onchange="this.form.submit()">
+                    </form>
+                    {% else %}
+                    <img src="{{ profile_user.avatar }}" alt="{{ profile_user.username }}" class="profile-avatar">
+                    {% endif %}
+
+                    <div class="profile-info">
+                        <div class="profile-name-section">
+                            <h2>{{ profile_user.username }}</h2>
+                            {% if is_own_profile %}
+                            <button onclick="toggleEditUsername()" style="background: none; border: none; cursor: pointer; font-size: 20px;">✏️</button>
+                            {% endif %}
+                        </div>
+
+                        <div class="profile-bio">
+                            <span>{{ profile_user.short_bio }}</span>
+                            {% if is_own_profile %}
+                            <button onclick="toggleEditBio()" style="background: none; border: none; cursor: pointer; font-size: 20px;">✏️</button>
+                            {% endif %}
+                        </div>
+
+                        <div class="profile-stats">
+                            <span>Seguidores: {{ profile_user.followers.count|default:"0" }}</span>
+                            <span>Siguiendo: {{ profile_user.following.count|default:"0" }}</span>
+                        </div>
+
+                        {% if not is_own_profile %}
+                        <div class="profile-actions">
+                            <button class="chat-button">escribir</button>
+                            <button id="followButton" class="follow-button" data-username="{{ profile_user.username }}">
+                                {% if request.user in profile_user.followers.all %}Dejar de seguir{% else %}Seguir{% endif %}
+                            </button>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            {% if is_own_profile %}
+            <form id="bio-form" method="post" style="display: none; margin: 20px 0;">
+                {% csrf_token %}
+                <input type="text" name="short_bio" maxlength="60" placeholder="Descripción corta (max 60 caracteres)" required>
+                <button type="submit" style="background: #00b74a; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Guardar</button>
+                <button type="button" onclick="toggleEditBio()" style="background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cancelar</button>
+            </form>
+            <form id="username-form" method="post" style="display: none; margin: 20px 0;">
+                {% csrf_token %}
+                <input type="text" name="new_username" placeholder="Nuevo nombre de usuario" required>
+                <button type="submit" style="background: #00b74a; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Guardar</button>
+                <button type="button" onclick="toggleEditUsername()" style="background: #ff4444; color: white; border: none; padding: 5px 10px; border-radius: 5px;">Cancelar</button>
+            </form>
+            {% endif %}
+
+            <h3 style="margin: 20px 0;">Posts</h3>
+
+            <div id="posts-container">
+                {% include 'core/posts_list.html' %}
+            </div>
+
+            {% if has_next %}
+            <div id="loading" style="display: none; text-align: center; padding: 20px;">
+                <div class="loading-spinner"></div>
+            </div>
+            <div id="intersection-observer"></div>
+            {% endif %}
+        </main>
+
+        <aside class="right-nav">
+            <h3>Posters:</h3>
+            {% for user in users %}
+            <a href="{% url 'profile' username=user.username %}" class="nav-item" style="text-decoration: none;">
+                <img src="{{ user.avatar }}" alt="{{ user.username }}" class="avatar" style="width: 30px; height: 30px;">
+                {{ user.username }}
+            </a>
+            {% endfor %}
+        </aside>
+    </div>
+
+    <nav class="mobile-nav">
+        <a href="{% url 'home' %}" id="mobile-home">
+            {% if request.resolver_match.url_name == 'home' %}
+            <img src="/media/icons&art/CasaCF.png" alt="Home" class="mobile-icon icon-casa">
+            {% else %}
+            <img src="/media/icons&art/CasaSF.png" alt="Home" class="mobile-icon icon-casa">
+            {% endif %}
+        </a>
+        
+        <a href="#" id="mobile-chat">
+            <img src="/media/icons&art/chatSF.png" alt="Chat" class="mobile-icon icon-chat">
+        </a>
+
+        <a href="{% url 'profile' username=request.user.username %}" id="mobile-profile">
+            {% if request.resolver_match.url_name == 'profile' %}
+            <img src="/media/icons&art/PerfilCF.png" alt="Profile" class="mobile-icon icon-perfil">
+            {% else %}
+            <img src="/media/icons&art/PerfilSF.png" alt="Profile" class="mobile-icon icon-perfil">
+            {% endif %}
+        </a>
+
+        <a href="#" onclick="toggleUsers(event)" id="mobile-users">
+            <img src="/media/icons&art/posterSF.png" alt="Users" class="mobile-icon icon-poster" id="users-icon">
+        </a>
+    </nav>
+
+    <div class="followers-modal" id="followersModal">
+        <div class="followers-content">
+            <h3 class="h3de"> Seguidores de {{ profile_user.username }}</h3>
+            <ul class="followers-list" id="followersList"></ul>
+            <button class="h3de" onclick="closeFollowersModal()">Cerrar</button>
+        </div>
+    </div>
+
+
+
+    
+    <script>
+        const fabPost = document.getElementById('fab-post');
+        const fabLapizIcon = document.getElementById('fab-lapiz-icon');
+        const lapizIcon = document.getElementById('lapiz-icon');
+
+        let currentPage = 1;
+        let loading = false;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const postsContainer = document.getElementById('posts-container');
+            const loadingElement = document.getElementById('loading');
+            const observer = document.getElementById('intersection-observer');
+
+            if (observer) {
+                const intersectionObserver = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting && !loading) {
+                        loadMorePosts();
+                    }
+                });
+
+                intersectionObserver.observe(observer);
+            }
+
+            function loadMorePosts() {
+                if (loading) return;
+                loading = true;
+                currentPage++;
+                loadingElement.style.display = 'block';
+
+                fetch(`?page=${currentPage}`, {
+                    headers: {
+                        'HX-Request': 'true'
+                    }
+                })
+                .then(response => response.text())
+                .then(html => {
+                    if (html.trim()) {
+                        const tempContainer = document.createElement('div');
+                        tempContainer.innerHTML = html;
+                        
+                        // Check if there are any actual posts in the response
+                        const posts = tempContainer.querySelectorAll('.post');
+                        if (posts.length > 0) {
+                            postsContainer.appendChild(tempContainer);
+                            initializeLikeButtons(tempContainer);
+                        } else {
+                            // No posts found, disconnect observer
+                            intersectionObserver.disconnect();
+                            const endMessage = document.createElement('div');
+                            endMessage.className = 'text-center text-gray-500 py-4';
+                            endMessage.textContent = 'No hay más posts';
+                            postsContainer.appendChild(endMessage);
+                        }
+                    } else {
+                        // Empty response, disconnect observer
+                        intersectionObserver.disconnect();
+                        const endMessage = document.createElement('div');
+                        endMessage.className = 'text-center text-gray-500 py-4';
+                        endMessage.textContent = 'No hay más posts';
+                        postsContainer.appendChild(endMessage);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    // On error, disconnect observer
+                    intersectionObserver.disconnect();
+                })
+                .finally(() => {
+                    loading = false;
+                    loadingElement.style.display = 'none';
+                });
+            }
+            function initializeLikeButtons(container) {
+                container.querySelectorAll('.like-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const postId = this.dataset.postId;
+                        const likeIcon = this.querySelector('img');
+                        
+                        fetch(`/post/${postId}/like/`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': document.querySelector('#csrfToken').value
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            const likesCount = this.querySelector('.likes-count');
+                            likesCount.textContent = data.likes_count;
+                            this.classList.toggle('liked', data.liked);
+                            
+                            if (data.liked) {
+                                likeIcon.src = "/media/icons&art/likeCF.png";
+                            } else {
+                                likeIcon.src = "/media/icons&art/likeSF.png";
+                            }
+                        });
+                    });
+                });
+            }
+
+            initializeLikeButtons(postsContainer);
+        });
+
+        function toggleUsers(e) {
+            e.preventDefault();
+            const rightNav = document.querySelector('.right-nav');
+            const usersIcon = document.getElementById('users-icon');
+            rightNav.classList.toggle('active');
+
+            if (rightNav.classList.contains('active')) {
+                usersIcon.src = "/media/icons&art/posterCF.png";
+            } else {
+                usersIcon.src = "/media/icons&art/posterSF.png";
+            }
+        }
+
+        function toggleEditUsername() {
+            const form = document.getElementById('username-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function toggleEditBio() {
+            const form = document.getElementById('bio-form');
+            form.style.display = form.style.display === 'none' ? 'block' : 'none';
+        }
+
+        const followButton = document.getElementById('followButton');
+        if (followButton) {
+            followButton.addEventListener('click', handleFollow);
+        }
+
+        function handleFollow(e) {
+            e.preventDefault();
+            const button = this;
+            const username = button.dataset.username;
+
+            fetch(`/follow/${username}/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.getElementById('csrfToken').value
+                }
+            }).then(response => response.text())
+              .then(() => {
+                const isFollowing = button.textContent.includes('Dejar');
+                button.textContent = isFollowing ? 'Seguir' : 'Dejar de seguir';
+                button.classList.toggle('follow-button');
+                button.classList.toggle('unfollow-button');
+                
+                const followerCount = document.querySelector('.profile-stats span:first-child');
+                let count = parseInt(followerCount.textContent.match(/\d+/)[0]);
+                count = isFollowing ? count - 1 : count + 1;
+                followerCount.textContent = `Seguidores: ${count}`;
+            });
+        }
+
+        document.querySelector('.profile-stats span:first-child').addEventListener('click', function(e) {
+            e.preventDefault();
+            openFollowersModal();
+        });
+
+        function openFollowersModal() {
+            const modal = document.getElementById('followersModal');
+            modal.style.display = 'flex';
+            fetch(`/api/followers/{{ profile_user.id }}/`)
+                .then(response => response.json())
+                .then(data => {
+                    const followersList = document.getElementById('followersList');
+                    followersList.innerHTML = '';
+                    data.followers.forEach(follower => {
+                        const listItem = document.createElement('li');
+                        listItem.innerHTML = `<a href="/profile/${follower.username}" class="follower-item">${follower.username}</a>`;
+                        followersList.appendChild(listItem);
+                    });
+                });
+        }
+
+        function closeFollowersModal() {
+            document.getElementById('followersModal').style.display = 'none';
+        }
+    </script>
+</body>
+</html>

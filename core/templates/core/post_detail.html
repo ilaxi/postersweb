@@ -1,0 +1,1181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>post</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        :root {
+            --bg-color: rgba(15, 15, 14);
+            --nav-bg: rgba(0, 0, 0);
+            --text-color: #ffffff;
+            --accent-color: rgba(26, 26, 26, 1);
+            --icon-standard-size: 24px;
+            --highlight-color: #ccccce;
+            --border-color: rgba(255, 255, 255, 0.226);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--nav-bg);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 327px 1fr 363px;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .left-nav, .right-nav {
+            background: var(--nav-bg);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .left-nav {
+            border: none;
+            border-right: 1px solid var(--border-color);
+            align-items: center;
+            text-align: center;
+        }
+        
+        .right-nav {
+            border: none;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: var(--text-color);
+            font-size: 1.36rem; 
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+            text-align: center;
+        }
+
+
+        .site-logo, .site-logo:link, .site-logo:visited {
+            font-size: 2.7rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: center;
+            padding: 5px 0;
+            margin-top: -30px;
+            font-family: 'Niramit', sans-serif;
+            letter-spacing: -1.9px;
+            color: #FFFFFF;
+            -webkit-text-stroke: 0.5px #FFFFFF;
+            text-decoration: none;
+            display: inline-block;
+            width: max-content;
+            position: relative;
+            left: 30%;
+            transform: translateX(-60%);
+        }
+
+        .nav-item:hover {
+            background: var(--accent-color);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-left: 70px; 
+        }
+
+        .main-content {
+            max-width: 683px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            margin-top: 8px;
+            position: relative; 
+        }
+
+        .post {
+            background: var(--nav-bg);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .custom-icon {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            object-fit: contain;
+            vertical-align: middle;
+        }
+
+        .icon-casa {
+            width: 28px;
+            height: 29px;
+        }
+
+        .icon-chat {
+            width: calc(var(--icon-standard-size) * 1.1); 
+            height: var(--icon-standard-size);
+        }
+
+        .icon-perfil {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+        }
+
+        .icon-lapiz {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            transform: rotate(-10deg); 
+        }
+
+        .mobile-icon {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            object-fit: contain;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        #file-name {
+            margin-left: 10px;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+
+        #removeImageButton {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+            padding: 2px 6px;
+        }
+
+        #preview-container {
+            margin-top: 10px;
+            display: none;
+            border: 1px solid var(--border-color);
+        }
+
+        #preview-container img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .post-content {
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            max-height: auto;
+            object-fit: contain;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px 0;
+            border-top: 1px solid #9ea2a71f;
+        }
+
+        .post-nav {
+            background: #ccccce;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 7px 15px;
+            font-family: 'Niramit', sans-serif;
+            font-weight: bold;
+            color: #000000;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: 90%;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .post-nav:hover {
+            background: #FFFFFF;
+        } 
+
+        .action-btn {
+            background: #2d2d2e17;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: var(--accent-color);
+            border: 0.2px solid var(--border-color);
+        }
+
+        .liked {
+            background: var(--accent-color);
+        }
+
+        .comments-section {
+            margin-top: 20px;
+            
+        }
+
+        .comment-form {
+            background: var(--nav-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border: 0.2px solid var(--border-color);
+        }
+
+        .comment-input {
+            width: 100%;
+            background: rgb(37, 37, 37);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            color: var(--text-color);
+            min-height: 60px;
+            margin-bottom: 10px;
+            resize: none;
+        }
+
+        .comment-submit {
+            background: #ccccce;
+            color: rgb(0, 0, 0);
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .comment-input-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+
+        .comment-submit:hover {
+            transform: scale(1.02);
+        }
+
+        .comment {
+            background: var(--nav-bg);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            border: 0.2px solid var(--border-color);
+        }
+
+        .comment-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .comment-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+
+        #comment-text-preview {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+            color: var(--text-color);
+            white-space: pre-wrap;
+        }
+
+        .preview-toggle {
+            background: none;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 6px;
+            font-size: 0.73em;
+            margin-left: auto;
+            margin-top: -5px;
+        }
+
+        .preview-toggle.active {
+            background: #ccccce;
+            color: rgb(0, 0, 0);
+        }
+
+
+        .mobile-nav {
+            display: none;
+            border: none;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .link-preview {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .preview-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: opacity 0.2s;
+            border: 0.2px solid var(--border-color);
+        }
+
+        .preview-card img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+        }
+
+        .preview-info {
+            padding: 12px;
+        }
+
+        .preview-info h4 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--text-color);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        #comment-preview-container {
+            margin-top: 10px;
+            display: none;
+            max-width: 100%;
+        }
+        #comment-preview-container img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+        #comment-removeImageButton {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+            padding: 2px 6px;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }   
+
+        ::-webkit-scrollbar-track {
+            background: black;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+
+        .mobile-top-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-logo, .mobile-logo:link, .mobile-logo:visited {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: -13px;
+            font-family: 'Niramit', sans-serif;
+            letter-spacing: -2px;
+            color: #FFFFFF;
+            -webkit-text-stroke: 0.5px #FFFFFF;
+            text-decoration: none;
+            display: block;
+        }
+
+        .fab {
+            display: none;
+            position: fixed;
+            right: 20px;
+            bottom: 70px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #ccccce;
+            z-index: 102;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+
+
+        @media (min-width: 1600px) {
+            .container {
+                grid-template-columns: 350px 1fr 350px;
+            }
+
+            .left-nav, .right-nav {
+                width: 350px;
+            }
+
+            .main-content {
+                max-width: 700px;
+            }
+
+            .site-logo, .site-logo:link, .site-logo:visited { 
+                font-size: 3rem;
+                left: 32%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .left-nav, .right-nav {
+                display: none;
+                background: rgb(0, 0, 0);
+                position: fixed;
+                bottom: 0px;
+                left: 0;
+                width: 100%;
+                height: auto;
+                max-height: 100vh;
+                z-index: 100;
+                border-top: 1px solid #ffffff20;
+            }
+
+            .left-nav.active, .right-nav.active {
+                display: block;
+            }
+
+            .mobile-top-bar {
+                display: flex;
+            }
+
+            .fab {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: flex;
+                position: fixed;
+                height: 48px;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: rgb(0, 0, 0);
+                padding: 3.5px;
+                justify-content: space-around;
+                z-index: 101;
+            }
+
+            .mobile-nav a {
+                color: var(--text-color);
+                text-decoration: none;
+                font-size: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-icon.icon-casa {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .mobile-icon.icon-chat {
+                width: 28px;
+                height: 26px;
+            }
+            
+            .mobile-icon.icon-perfil {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .mobile-icon.icon-lapiz {
+                width: 24px;
+                height: 24px;
+                transform: rotate(-10deg);
+            }
+
+            .mobile-icon.icon-poster {
+                width: 26px;
+                height: 26px;
+            }
+
+            .main-content {
+                margin-top: 48px;
+                margin-bottom: 70px;
+            }
+
+
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-top-bar">
+        <a href="{% url 'us' %}" class="mobile-logo">posters</a>
+    </div>
+
+    <a href="#post-box" class="fab" id="fab-post">
+        <img src="/media/icons&art/LapízSF.png" alt="Post" class="icon-lapiz" id="fab-lapiz-icon" style="width: 24px; height: 24px;">
+    </a>
+
+    <div class="container">
+        <nav class="left-nav">
+            <a href="{% url 'us' %}" class="site-logo">posters</a>
+            
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="nav-item" id="home-link">
+                    <span class="nav-item-icon">
+                        {% if request.resolver_match.url_name == 'home' %}
+                        <img src="/media/icons&art/CasaCF.png" alt="Home" class="custom-icon icon-casa">
+                        {% else %}
+                        <img src="/media/icons&art/CasaSF.png" alt="Home" class="custom-icon icon-casa">
+                        {% endif %}
+                    </span> Inicio
+                </a>
+                <a href="#" class="nav-item" id="chat-link">
+                    <span class="nav-item-icon">
+                        <img src="/media/icons&art/chatSF.png" alt="Chat" class="custom-icon icon-chat">
+                    </span> Chat
+                </a>
+                <a href="{% url 'profile' username=request.user.username %}" class="nav-item" id="profile-link">
+                    <span class="nav-item-icon">
+                        {% if request.resolver_match.url_name == 'profile' %}
+                        <img src="/media/icons&art/PerfilCF.png" alt="Profile" class="custom-icon icon-perfil">
+                        {% else %}
+                        <img src="/media/icons&art/PerfilSF.png" alt="Profile" class="custom-icon icon-perfil">
+                        {% endif %}
+                    </span> Perfil
+                </a>
+                <a href="{% url 'home' %}" class="post-nav" id="post-link">
+                    Postear
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <article class="post">
+                <div class="post-header">
+                    <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                        <div style="display: flex; align-items: center;">
+                            <a href="{% url 'profile' username=post.user.username %}" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                                <img src="{{ post.user.avatar }}" alt="{{ post.user.username }}" class="avatar">
+                                <strong>{{ post.user.username }}</strong>
+                            </a>
+                            <span style="margin-left: 10px; font-size: 0.8em; color: #a7b0b99a;">{{ post.get_relative_time }}</span>
+                        </div>
+                        {% if request.user == post.user %}
+                        <div class="post-menu" style="position: relative;">
+                            <button onclick="togglePostMenu({{ post.id }})" class="menu-btn" style="background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 20px;">⋮</button>
+                            <div id="postMenu{{ post.id }}" class="post-menu-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background:rgba(38, 38, 38, 1);; border-radius: 3px; box-shadow: 0 5px 5px rgba(0,0,0,0.0); z-index: 1000;">
+                                <button onclick="editPost({{ post.id }})" style="display: block; width: 100%; padding: 8px 15px; border: none; background: none; color: var(--text-color); cursor: pointer; text-align: left;">Editar</button>
+                                <button onclick="deletePost({{ post.id }})" style="display: block; width: 100%; padding: 8px 15px; border: none; background: none; color: #ff4444; cursor: pointer; text-align: left;">Borrar</button>
+                            </div>
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="post-content">
+                    {{ post.content|safe }}
+                    {% if post.image %}
+                    <img src="{{ post.image.url }}" alt="Post image" class="post-image">
+                    {% endif %}
+
+                    {% if post.preview_url %}
+                    <a href="{{ post.preview_url }}" target="_blank" class="link-preview">
+                        <div class="preview-card">
+                            {% if post.preview_image %}
+                            <img src="{{ post.preview_image }}" alt="Preview" class="preview-image">
+                            {% endif %}
+                            <div class="preview-info">
+                                <h4>{{ post.preview_title }}</h4>
+                                {% if post.preview_domain %}
+                                <span style="font-size: 12px; color: #888;">{{ post.preview_domain }}</span>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                    {% endif %} 
+                </div>
+                <div class="post-actions">
+                    <button class="action-btn like-btn {% if request.user in post.likes.all %}liked{% endif %}" data-post-id="{{ post.id }}">
+                        <img src="/media/icons&art/{% if request.user in post.likes.all %}likeCF.png{% else %}likeSF.png{% endif %}" alt="Like" style="width: 14px; height: 14px;">
+                        <span class="likes-count">{{ post.get_likes_count }}</span>
+                    </button>
+                    <button class="action-btn">
+                        <img src="/media/icons&art/repostSF.png" alt="Repost" style="width: 20px; height: 20px;">
+                        Repost
+                    </button>
+                    <button class="action-btn">
+                        {% if request.resolver_match.url_name == 'post_detail' %}
+                        <img src="/media/icons&art/commentCF.png" alt="Comment" style="width: 16px; height: 16px">
+                        {% else %}
+                        <img src="/media/icons&art/commentSF.png" alt="Comment" style="width: 16px; height: 16px;">
+                        {% endif %}
+                        {{ post.get_comments_count }}
+                    </button>
+                </div>
+            </article>
+
+            <div class="comments-section">
+                <form method="post" action="{% url 'add_comment' post.id %}" class="comment-form" enctype="multipart/form-data" onsubmit="return validateForm(event)">
+                    {% csrf_token %}
+                    <textarea name="content" class="comment-input" placeholder="posteá un comentario..."></textarea>
+                    <div id="comment-text-preview"></div>
+                    <div class="comment-input-actions">
+                    <div class="image-upload" style="margin-bottom: 15px;">
+                        <label for="comment-image-input" style="cursor: pointer; display: inline-block; margin-top: 3px;">
+                            📷
+                        </label>
+                        <input id="comment-image-input" type="file" name="image" accept="image/*" style="display: none;">
+                        <span id="comment-file-name"></span>
+                        <button type="button" id="comment-removeImageButton" style="display: none;">X</button>
+                    </div>
+                    <button type="button" id="togglePreview" class="preview-toggle"> 
+                        preview
+                    </button>
+                    </div>
+                    <div id="comment-preview-container" style="margin-bottom: 15px; display: none;">
+                        <img id="comment-preview" src="#" alt="Previsualización de la imagen">
+                    </div>
+                    <button type="submit" class="comment-submit">Comentar</button>
+                </form>
+
+                <h3 style="margin-bottom: 15px;">Comentarios</h3>
+                {% for comment in post.comments.all %}
+                <div class="comment" data-comment-id="{{ comment.id }}">
+                    <div class="comment-header">
+                        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+                            <div style="display: flex; align-items: center;">
+                                <a href="{% url 'profile' username=comment.user.username %}" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                                    <img src="{{ comment.user.avatar }}" alt="{{ comment.user.username }}" class="avatar">
+                                    <strong>{{ comment.user.username }}</strong>
+                                </a>
+                                <span style="margin-left: 10px; font-size: 0.8em; color: #a7b0b99a;">{{ comment.get_relative_time }}</span>
+                            </div>
+                            {% if request.user == comment.user %}
+                            <div class="comment-menu" style="position: relative;">
+                                <button onclick="toggleCommentMenu({{ comment.id }})" class="menu-btn" style="background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 20px;">⋮</button>
+                                <div id="commentMenu{{ comment.id }}" class="comment-menu-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background:rgba(38, 38, 38, 1);; border-radius: 3px; box-shadow: 0 5px 5px rgba(0,0,0,0.0); z-index: 1000;">
+                                    <button onclick="editComment({{ comment.id }})" style="display: block; width: 100%; padding: 8px 15px; border: none; background: none; color: var(--text-color); cursor: pointer; text-align: left;">Editar</button>
+                                    <button onclick="deleteComment({{ comment.id }})" style="display: block; width: 100%; padding: 8px 15px; border: none; background: none; color: #ff4444; cursor: pointer; text-align: left;">Borrar</button>
+                                </div>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="post-content">
+                        {{ comment.content|safe }}
+                        {% if comment.image %}
+                        <img src="{{ comment.image.url }}" alt="Comment image" class="post-image">
+                        {% endif %}
+
+                        {% if comment.preview_url %}
+                        <a href="{{ comment.preview_url }}" target="_blank" class="link-preview">
+                            <div class="preview-card">
+                                {% if comment.preview_image %}
+                                <img src="{{ comment.preview_image }}" alt="Preview" class="preview-image">
+                                {% endif %}
+                                <div class="preview-info">
+                                    <h4>{{ comment.preview_title }}</h4>
+                                    {% if comment.preview_domain %} 
+                                    <span style="font-size: 12px; color: #888;">{{ comment.preview_domain }}</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="comment-actions">
+                        <button class="action-btn like-comment-btn {% if request.user in comment.likes.all %}liked{% endif %}" data-comment-id="{{ comment.id }}">
+                            <img src="/media/icons&art/{% if request.user in comment.likes.all %}likeCF.png{% else %}likeSF.png{% endif %}" alt="Like" style="width: 14px; height: 14px;">
+                            <span class="comment-likes-count">{{ comment.get_likes_count }}</span>
+                        </button>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </main>
+        <aside class="right-nav">
+            <h3>Posters:</h3>
+            {% for user in users %}
+            <a href="{% url 'profile' username=user.username %}" class="nav-item" style="text-decoration: none;">
+                <img src="{{ user.avatar }}" alt="{{ user.username }}" class="avatar" style="width: 30px; height: 30px;">
+                {{ user.username }}
+            </a>
+            {% endfor %}
+        </aside>
+    </div>
+
+    <nav class="mobile-nav">
+        <a href="{% url 'home' %}" id="mobile-home">
+            {% if request.resolver_match.url_name == 'home' %}
+            <img src="/media/icons&art/CasaCF.png" alt="Home" class="mobile-icon icon-casa">
+            {% else %}
+            <img src="/media/icons&art/CasaSF.png" alt="Home" class="mobile-icon icon-casa">
+            {% endif %}
+        </a>
+        
+        <a href="#" id="mobile-chat">
+            <img src="/media/icons&art/chatSF.png" alt="Chat" class="mobile-icon icon-chat">
+        </a>
+
+        <a href="{% url 'profile' username=request.user.username %}" id="mobile-profile">
+            {% if request.resolver_match.url_name == 'profile' %}
+            <img src="/media/icons&art/PerfilCF.png" alt="Profile" class="mobile-icon icon-perfil">
+            {% else %}
+            <img src="/media/icons&art/PerfilSF.png" alt="Profile" class="mobile-icon icon-perfil">
+            {% endif %}
+        </a>
+        <a href="#" onclick="toggleUsers(event)" id="mobile-users">
+            <img src="/media/icons&art/posterSF.png" alt="Users" class="mobile-icon icon-poster" id="users-icon">
+        </a>
+    </nav>
+
+    <script>
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.post-menu') && !e.target.closest('.comment-menu')) {
+                document.querySelectorAll('.post-menu-dropdown, .comment-menu-dropdown').forEach(menu => {
+                    menu.style.display = 'none';
+                });
+            }
+        });
+
+        function togglePostMenu(postId) {
+            const menu = document.getElementById(`postMenu${postId}`);
+            document.querySelectorAll('.post-menu-dropdown, .comment-menu-dropdown').forEach(m => {
+                if (m !== menu) m.style.display = 'none';
+            });
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function toggleCommentMenu(commentId) {
+            const menu = document.getElementById(`commentMenu${commentId}`);
+            document.querySelectorAll('.post-menu-dropdown, .comment-menu-dropdown').forEach(m => {
+                if (m !== menu) m.style.display = 'none';
+            });
+            menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+        }
+
+        function editPost(postId) {
+            const contentDiv = document.querySelector('.post-content');
+            const currentContent = contentDiv.innerHTML
+                .replace(/<strong[^>]*>/g, '**')
+                .replace(/<\/strong>/g, '**')
+                .replace(/<br>/g, '\n')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/<[^>]*>/g, '')
+                .trim();
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = currentContent;
+            textarea.style.width = '100%';
+            textarea.style.minHeight = '100px';
+            textarea.style.background = '#ffffff20';
+            textarea.style.border = 'none';
+            textarea.style.padding = '10px';
+            textarea.style.borderRadius = '5px';
+            textarea.style.color = 'var(--text-color)';
+            textarea.style.resize = 'vertical';
+
+            const saveButton = document.createElement('button');
+            saveButton.textContent = 'Guardar';
+            saveButton.style.background = '#00b74a';
+            saveButton.style.color = 'white';
+            saveButton.style.border = 'none';
+            saveButton.style.padding = '8px 15px';
+            saveButton.style.borderRadius = '5px';
+            saveButton.style.marginTop = '10px';
+            saveButton.style.cursor = 'pointer';
+
+            const cancelButton = document.createElement('button');
+            cancelButton.textContent = 'Cancelar';
+            cancelButton.style.background = '#ff4444';
+            cancelButton.style.color = 'white';
+            cancelButton.style.border = 'none';
+            cancelButton.style.padding = '8px 15px';
+            cancelButton.style.borderRadius = '5px';
+            cancelButton.style.marginTop = '10px';
+            cancelButton.style.marginLeft = '10px';
+            cancelButton.style.cursor = 'pointer';
+
+            const buttonContainer = document.createElement('div');
+            buttonContainer.appendChild(saveButton);
+            buttonContainer.appendChild(cancelButton);
+
+            const originalContent = contentDiv.innerHTML;
+            contentDiv.innerHTML = '';
+            contentDiv.appendChild(textarea);
+            contentDiv.appendChild(buttonContainer);
+
+            saveButton.onclick = function() {
+                const newContent = textarea.value;
+                fetch(`/post/${postId}/edit/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: `content=${encodeURIComponent(newContent)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                });
+            };
+
+            cancelButton.onclick = function() {
+                contentDiv.innerHTML = originalContent;
+            };
+
+            document.getElementById(`postMenu${postId}`).style.display = 'none';
+        }
+
+        function deletePost(postId) {
+            if (confirm('¿Seguro que lo querés borrar?')) {
+                fetch(`/post/${postId}/delete/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                }).then(() => {
+                    window.location.href = '/home/';
+                });
+            }
+        }
+
+        function editComment(commentId) {
+            const comment = document.querySelector(`.comment[data-comment-id="${commentId}"]`) || 
+                            Array.from(document.querySelectorAll('.comment')).find(c => 
+                                c.querySelector(`.like-comment-btn[data-comment-id="${commentId}"]`));
+            
+            if (!comment) return;
+            
+            const contentDiv = comment.querySelector('.post-content');
+            const currentContent = contentDiv.innerHTML
+                .replace(/<strong[^>]*>/g, '**')
+                .replace(/<\/strong>/g, '**')
+                .replace(/<br>/g, '\n')
+                .replace(/&nbsp;/g, ' ')
+                .replace(/<[^>]*>/g, '')
+                .trim();
+                
+            
+            const textarea = document.createElement('textarea');
+            textarea.value = currentContent;
+            textarea.style.width = '100%';
+            textarea.style.minHeight = '100px';
+            textarea.style.background = '#ffffff20';
+            textarea.style.border = 'none';
+            textarea.style.padding = '10px';
+            textarea.style.borderRadius = '5px';
+            textarea.style.color = 'var(--text-color)';
+            textarea.style.resize = 'vertical';
+
+            const saveButton = document.createElement('button');
+            saveButton.textContent = 'Guardar';
+            saveButton.style.background = '#00b74a';
+            saveButton.style.color = 'white';
+            saveButton.style.border = 'none';
+            saveButton.style.padding = '8px 15px';
+            saveButton.style.borderRadius = '5px';
+            saveButton.style.marginTop = '10px';
+            saveButton.style.cursor = 'pointer';
+
+            const cancelButton = document.createElement('button');
+            cancelButton.textContent = 'Cancelar';
+            cancelButton.style.background = '#ff4444';
+            cancelButton.style.color = 'white';
+            cancelButton.style.border = 'none';
+            cancelButton.style.padding = '8px 15px';
+            cancelButton.style.borderRadius = '5px';
+            cancelButton.style.marginTop = '10px';
+            cancelButton.style.marginLeft = '10px';
+            cancelButton.style.cursor = 'pointer';
+
+            const buttonContainer = document.createElement('div');
+            buttonContainer.appendChild(saveButton);
+            buttonContainer.appendChild(cancelButton);
+
+            const originalContent = contentDiv.innerHTML;
+            contentDiv.innerHTML = '';
+            contentDiv.appendChild(textarea);
+            contentDiv.appendChild(buttonContainer);
+
+            saveButton.onclick = function() {
+                const newContent = textarea.value;
+                fetch(`/comment/${commentId}/edit/`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    },
+                    body: `content=${encodeURIComponent(newContent)}`
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        location.reload();
+                    }
+                });
+            };
+
+            cancelButton.onclick = function() {
+                contentDiv.innerHTML = originalContent;
+            };
+
+            document.getElementById(`commentMenu${commentId}`).style.display = 'none';
+        }
+
+        function deleteComment(commentId) {
+            if (confirm('¿Seguro que lo querés borrar?')) {
+                fetch(`/comment/${commentId}/delete/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                }).then(() => {
+                    location.reload();
+                });
+            }
+        }
+
+        document.getElementById('comment-image-input').addEventListener('change', function(event) {
+            const input = event.target;
+            const file = input.files[0];
+            const fileNameSpan = document.getElementById('comment-file-name');
+            const previewImage = document.getElementById('comment-preview');
+            const previewContainer = document.getElementById('comment-preview-container');
+            const removeButton = document.getElementById('comment-removeImageButton');
+            
+            if (file) {
+                fileNameSpan.textContent = '📎 ' + file.name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+                removeButton.style.display = 'inline-block';
+            } else {
+                fileNameSpan.textContent = '';
+                previewContainer.style.display = 'none';
+                previewImage.src = '#';
+                removeButton.style.display = 'none';
+            }
+        });
+
+        document.getElementById('comment-removeImageButton').addEventListener('click', function() {
+            const imageInput = document.getElementById('comment-image-input');
+            imageInput.value = '';
+            document.getElementById('comment-file-name').textContent = '';
+            document.getElementById('comment-preview-container').style.display = 'none';
+            document.getElementById('comment-preview').src = '#';
+            this.style.display = 'none';
+        });
+                
+        document.querySelectorAll('.like-comment-btn').forEach(button => {
+            button.addEventListener('click', function() {
+                const commentId = this.dataset.commentId;
+                const likeIcon = this.querySelector('img');
+                
+                fetch(`/comment/${commentId}/like/`, {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                    }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const likesCount = this.querySelector('.comment-likes-count');
+                    likesCount.textContent = data.likes_count;
+                    this.classList.toggle('liked', data.liked);
+                    
+                    if (data.liked) {
+                        likeIcon.src = "/media/icons&art/likeCF.png";
+                    } else {
+                        likeIcon.src = "/media/icons&art/likeSF.png";
+                    }
+                });
+            });
+        });
+
+        function toggleUsers(e) {
+            e.preventDefault();
+            const rightNav = document.querySelector('.right-nav');
+            const usersIcon = document.getElementById('users-icon');
+            rightNav.classList.toggle('active');
+
+            if (rightNav.classList.contains('active')) {
+                usersIcon.src = "/media/icons&art/posterCF.png";
+            } else {
+                usersIcon.src = "/media/icons&art/posterSF.png";
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const likeBtn = document.querySelector('.like-btn');
+            if (likeBtn) {
+                likeBtn.addEventListener('click', function() {
+                    const postId = this.dataset.postId;
+                    const likeIcon = this.querySelector('img');
+                    
+                    fetch(`/post/${postId}/like/`, {
+                        method: 'POST',
+                        headers: {
+                            'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                        }
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        const likesCount = this.querySelector('.likes-count');
+                        likesCount.textContent = data.likes_count;
+                        this.classList.toggle('liked', data.liked);
+                        
+                        if (data.liked) {
+                            likeIcon.src = "/media/icons&art/likeCF.png";
+                        } else {
+                            likeIcon.src = "/media/icons&art/likeSF.png";
+                        }
+                    });
+                });
+            }
+        });
+
+        function validateForm(event) {
+            const content = document.querySelector('.comment-input').value.trim();
+            const image = document.querySelector('#comment-image-input').files[0];
+            
+            if (!content && !image) {
+                alert('Debes agregar un comentario o una imagen');
+                return false;
+            }
+            return true;
+        }
+
+
+        const postInput = document.querySelector('.comment-input');
+        const postTextPreview = document.getElementById('comment-text-preview');
+        const togglePreviewBtn = document.getElementById('togglePreview');
+        let previewEnabled = false;
+        togglePreviewBtn.addEventListener('click', function() {
+            previewEnabled = !previewEnabled;
+            togglePreviewBtn.classList.toggle('active');
+            if (!previewEnabled) {
+                postTextPreview.style.display = 'none';
+            } else if (postInput.value.trim().length > 0) {
+                updatePreview();
+            }
+        });
+
+        postInput.addEventListener('input', function() {
+            if (previewEnabled) {
+                updatePreview();
+            }
+        });
+
+        function updatePreview() {
+            let text = postInput.value;
+            if (text.trim().length > 0) {
+                let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong style="display:inline">$1</strong>');
+                formatted = formatted.replace(/\n/g, '<br>');
+                postTextPreview.innerHTML = formatted;
+                postTextPreview.style.display = 'block';
+            } else {
+                postTextPreview.innerHTML = '';
+                postTextPreview.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

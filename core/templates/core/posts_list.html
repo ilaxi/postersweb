@@ -1,0 +1,208 @@
+{% for post in posts %}
+<article class="post">
+    <div class="post-header">
+        <div style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+            <div style="display: flex; align-items: center;">
+                <a href="{% url 'profile' username=post.user.username %}" style="text-decoration: none; color: inherit; display: flex; align-items: center;">
+                    <img src="{{ post.user.avatar }}" alt="{{ post.user.username }}" class="avatar">
+                    <strong>{{ post.user.username }}</strong>
+                </a>
+                <span style="margin-left: 10px; font-size: 0.8em; color: #a7b0b99a;">{{ post.get_relative_time }}</span>
+            </div>
+            {% if request.user == post.user %}
+            <div class="post-menu" style="position: relative;">
+                <button onclick="togglePostMenu({{ post.id }})" class="menu-btn" style="background: none; border: none; color: var(--text-color); cursor: pointer; font-size: 20px;">⋮</button>
+                <div id="postMenu{{ post.id }}" class="post-menu-dropdown" style="display: none; position: absolute; right: 0; top: 100%; background:rgba(38, 38, 38, 1); border-radius: 3px; box-shadow: 0 5px 5px rgba(0,0,0,0.0); z-index: 1000;">
+                    <button onclick="editPost({{ post.id }})" style="display: block; width: 100%; padding: 8px 15px; border: none; background: none; color: var(--text-color); cursor: pointer; text-align: left;">Editar</button>
+                    <button onclick="deletePost({{ post.id }})" style="display: block; width: 100%; padding: 8px 15px; border: none; background: none; color: #ff4444; cursor: pointer; text-align: left;">Borrar</button>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="post-content" id="postContent{{ post.id }}">
+        {{ post.content|safe }}
+        {% if post.image %}
+        <img src="{{ post.image.url }}" alt="Post image" class="post-image">
+        {% endif %}
+
+        {% if post.preview_url %}
+        <a href="{{ post.preview_url }}" target="_blank" class="link-preview">
+            <div class="preview-card">
+                {% if post.preview_image %}
+                <img src="{{ post.preview_image }}" alt="Preview" class="preview-image">
+                {% endif %}
+                <div class="preview-info">
+                    <h4>{{ post.preview_title }}</h4>
+                    {% if post.preview_domain %}
+                    <span style="font-size: 12px; color: #888;">{{ post.preview_domain }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </a>
+        {% endif %} 
+    </div>
+    <div class="post-actions">
+        <button class="action-btn like-btn {% if request.user in post.likes.all %}liked{% endif %}" data-post-id="{{ post.id }}">
+            <img src="/media/icons&art/{% if request.user in post.likes.all %}likeCF.png{% else %}likeSF.png{% endif %}" alt="Like" style="width: 14px; height: 14px;">
+            <span class="likes-count">{{ post.get_likes_count }}</span>
+        </button>
+        <button class="action-btn">
+            <img src="/media/icons&art/repostSF.png" alt="Repost" style="width: 20px; height: 20px;">
+            <span class="likes-count">{{ post.get_reposts_count }}</span>
+        </button>
+        <a href="{% url 'post_detail' post.id %}" class="action-btn">
+            {% if request.resolver_match.url_name == 'post_detail' %}
+            <img src="/media/icons&art/commentCF.png" alt="Comment" style="width: 14px; height: 14px;">
+            {% else %}
+            <img src="/media/icons&art/commentSF.png" alt="Comment" style="width: 14px; height: 14px;">
+            {% endif %}
+            <span class="likes-count">{{ post.get_comments_count }}</span>
+        </a>
+    </div>
+</article>
+{% endfor %}
+
+<script>
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.post-menu')) {
+            document.querySelectorAll('.post-menu-dropdown').forEach(menu => {
+                menu.style.display = 'none';
+            });
+        }
+    });
+
+    function togglePostMenu(postId) {
+        const menu = document.getElementById(`postMenu${postId}`);
+        document.querySelectorAll('.post-menu-dropdown').forEach(m => {
+            if (m !== menu) m.style.display = 'none';
+        });
+        menu.style.display = menu.style.display === 'none' ? 'block' : 'none';
+    }
+
+    function editPost(postId) {
+        const contentDiv = document.getElementById(`postContent${postId}`);
+        const currentContent = contentDiv.innerHTML
+            .replace(/<strong[^>]*>/g, '**')
+            .replace(/<\/strong>/g, '**')
+            .replace(/<br>/g, '\n')
+            .replace(/&nbsp;/g, ' ')
+            .replace(/<[^>]*>/g, '')
+            .trim();
+        
+        const textarea = document.createElement('textarea');
+        textarea.value = currentContent;
+        textarea.style.width = '100%';
+        textarea.style.minHeight = '100px';
+        textarea.style.background = '#ffffff20';
+        textarea.style.border = 'none';
+        textarea.style.padding = '10px';
+        textarea.style.borderRadius = '5px';
+        textarea.style.color = 'var(--text-color)';
+        textarea.style.resize = 'vertical';
+
+        const saveButton = document.createElement('button');
+        saveButton.textContent = 'Guardar';
+        saveButton.style.background = '#00b74a';
+        saveButton.style.color = 'white';
+        saveButton.style.border = 'none';
+        saveButton.style.padding = '8px 15px';
+        saveButton.style.borderRadius = '5px';
+        saveButton.style.marginTop = '10px';
+        saveButton.style.cursor = 'pointer';
+
+        const cancelButton = document.createElement('button');
+        cancelButton.textContent = 'Cancelar';
+        cancelButton.style.background = '#ff4444';
+        cancelButton.style.color = 'white';
+        cancelButton.style.border = 'none';
+        cancelButton.style.padding = '8px 15px';
+        cancelButton.style.borderRadius = '5px';
+        cancelButton.style.marginTop = '10px';
+        cancelButton.style.marginLeft = '10px';
+        cancelButton.style.cursor = 'pointer';
+
+        const buttonContainer = document.createElement('div');
+        buttonContainer.appendChild(saveButton);
+        buttonContainer.appendChild(cancelButton);
+
+        const originalContent = contentDiv.innerHTML;
+        contentDiv.innerHTML = '';
+        contentDiv.appendChild(textarea);
+        contentDiv.appendChild(buttonContainer);
+
+        saveButton.onclick = function() {
+            const newContent = textarea.value;
+            fetch(`/post/${postId}/edit/`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                },
+                body: `content=${encodeURIComponent(newContent)}`
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    contentDiv.innerHTML = data.content;
+                    document.getElementById(`postMenu${postId}`).style.display = 'none';
+                }
+            });
+        };
+
+        cancelButton.onclick = function() {
+            contentDiv.innerHTML = originalContent;
+        };
+
+        document.getElementById(`postMenu${postId}`).style.display = 'none';
+    }
+
+    function deletePost(postId) {
+        if (confirm('¿Seguro que lo querés borrar?')) {
+            fetch(`/post/${postId}/delete/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                }
+            }).then(() => {
+                window.location.reload();
+            });
+        }
+    }
+
+    document.querySelectorAll('.like-btn').forEach(button => {
+        button.addEventListener('click', function() {
+            const likeIcon = this.querySelector('img');
+            const isLiked = this.classList.contains('liked');
+            
+            if (isLiked) {
+                likeIcon.src = "/media/icons&art/likeSF.png";
+            } else {
+                likeIcon.src = "/media/icons&art/likeCF.png";
+            }
+        });
+    });
+
+    function formatTextPreview(textarea) {
+        const preview = document.createElement('div');
+        preview.style.cssText = `
+            position: absolute;
+            top: ${textarea.offsetTop}px;
+            left: ${textarea.offsetLeft}px;
+            width: ${textarea.offsetWidth}px;
+            height: ${textarea.offsetHeight}px;
+            padding: ${getComputedStyle(textarea).padding};
+            background: transparent;
+            pointer-events: none;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: var(--text-color);
+        `;
+
+        let text = textarea.value;
+        text = text.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+        preview.innerHTML = text;
+
+        return preview;
+    }
+</script>

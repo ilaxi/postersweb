@@ -1,0 +1,1052 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>posters</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Konkhmer+Sleokchher&family=Niramit:ital,wght@0,200;0,300;0,400;0,500;0,600;0,700;1,200;1,300;1,400;1,500;1,600;1,700&family=Outfit:wght@100..900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: rgb(15, 15, 15);
+            --nav-bg: rgb(0, 0, 0);
+            --text-color: #ffffff;
+            --accent-color: rgba(26, 26, 26, 1);
+            --icon-standard-size: 24px; 
+            --highlight-color: #ccccce;
+            --border-color: rgba(255, 255, 255, 0.226);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background: var(--nav-bg);
+            color: var(--text-color);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+        }
+
+        .container {
+            display: grid;
+            grid-template-columns: 327px 1fr 363px;
+            min-height: 100vh;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .left-nav, .right-nav {
+            background: var(--nav-bg);
+            padding: 20px;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+        }
+
+        .left-nav {
+            border: none;
+            border-right: 1px solid var(--border-color);
+            align-items: center;
+            text-align: center;
+        }
+        
+        .right-nav {
+            border: none;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .site-logo, .site-logo:link, .site-logo:visited {
+            font-size: 2.7rem;
+            font-weight: bold;
+            margin-bottom: 5px;
+            text-align: center;
+            padding: 5px 0;
+            margin-top: -30px;
+            font-family: 'Niramit', sans-serif;
+            letter-spacing: -1.9px;
+            color: #FFFFFF;
+            -webkit-text-stroke: 0.5px #FFFFFF;
+            text-decoration: none;
+            display: inline-block;
+            width: max-content;
+            position: relative;
+            left: 30%;
+            transform: translateX(-60%);
+        }
+
+        .nav-links {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-left: 70px; 
+        }
+
+        .nav-item {
+            display: flex;
+            align-items: center;
+            padding: 10px;
+            color: var(--text-color);
+            font-size: 1.36rem; 
+            text-decoration: none;
+            border-radius: 3px;
+            transition: background-color 0.2s;
+        }
+
+        .nav-item:hover {
+            background: var(--accent-color);
+        }
+
+        .nav-item-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            margin-right: 12px;
+            text-align: center;
+        }
+
+        .custom-icon {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            object-fit: contain;
+            vertical-align: middle;
+        }
+
+        .icon-casa {
+            width: 28px;
+            height: 29px;
+        }
+
+        .icon-chat {
+            width: calc(var(--icon-standard-size) * 1.1); 
+            height: var(--icon-standard-size);
+        }
+
+        .icon-perfil {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+        }
+
+        .icon-lapiz {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            transform: rotate(-10deg); 
+        }
+
+        .icon-poster {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            object-fit: contain;
+        }
+
+        .mobile-icon {
+            width: var(--icon-standard-size);
+            height: var(--icon-standard-size);
+            object-fit: contain;
+        }
+
+        .main-content {
+            max-width: 683px;
+            margin: 0 auto;
+            padding: 20px;
+            width: 100%;
+            margin-top: 8px;
+            position: relative; 
+        }
+
+        .content-filter-nav {
+            position: fixed;
+            top: 0;
+            width: 100%; 
+            display: flex;
+            border-bottom: 1px solid var(--border-color);
+            background: var(--nav-bg);
+            z-index: 999;
+            padding: 0;
+            transition: transform 0.3s ease;
+            height: 50px;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+        .content-filter-item {
+            color: var(--highlight-color);
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            position: relative;
+            transition: color 0.2s;
+            text-decoration: none;
+            flex: 1;
+            text-align: center;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-filter-item.active {
+            color: var(--text-color);
+        }
+
+        .content-filter-item.active::after {
+            content: "";
+            position: absolute;
+            bottom: 1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: var(--highlight-color);
+        }
+
+        .post-box {
+            background: var(--nav-bg);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            width: 100%;
+            margin-top: 38px;
+            border: 1px solid var(--border-color);
+        }
+
+        .post-input-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .image-upload {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        #file-name {
+            margin-left: 10px;
+            font-size: 0.6em;
+            color: var(--text-color);
+        }
+
+        #removeImageButton {
+            background-color: red;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-left: 10px;
+            padding: 2px 6px;
+        }
+
+        #preview-container {
+            margin-top: 10px;
+            display: none;
+        }
+
+        #preview-container img {
+            max-width: 100%;
+            border-radius: 5px;
+        }
+
+        .image-upload label {
+            cursor: pointer;
+        }
+
+        .post-form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .post-input {
+            background: rgb(37, 37, 37);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            color: var(--text-color);
+            min-height: 100px;
+            resize: none;
+        }
+
+        #post-text-preview {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+            display: none;
+            color: var(--text-color);
+            white-space: pre-wrap;
+        }
+
+        .preview-toggle {
+            background: none;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            cursor: pointer;
+            padding: 4px 6px;
+            border-radius: 6px;
+            font-size: 0.73em;
+            margin-left: auto;
+        }
+
+        .preview-toggle.active {
+            background: #ccccce;
+            color: rgb(0, 0, 0);
+        }
+
+        .post-button {
+            background: #ccccce;
+            color: rgb(0, 0, 0);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .post-button:hover {
+            transform: scale(1.009);
+        }
+
+        .post-nav {
+            background: #ccccce;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 7px 15px;
+            font-family: 'Niramit', sans-serif;
+            font-weight: bold;
+            color: #000000;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            width: 90%;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .post-nav:hover {
+            background: #FFFFFF;
+        } 
+
+        .post {
+            background: var(--nav-bg);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 15px;
+            width: 100%;
+            border: 1px solid var(--border-color);
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .post-content {
+            margin: 10px 0;
+            display: flex;
+            flex-direction: column;
+            overflow-wrap: break-word;
+            word-wrap: break-word;
+            word-break: break-word;
+            line-height: 1.4;
+        }
+
+        .post-image {
+            max-width: 100%;
+            height: auto;
+            max-height: auto;
+            object-fit: contain;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+        }
+
+        .post-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+            padding: 10px 0;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .action-btn {
+            background: #1d1d1d09;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            color: var(--text-color);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-decoration: none;
+        }
+
+        .action-btn:hover {
+            background: var(--accent-color);
+            border: 0.2px solid var(--border-color);
+        }
+
+        .liked {
+            background: var(--accent-color);
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid #ffffff;
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #intersection-observer {
+            height: 10px;
+            margin-top: -10px;
+        }
+
+        .mobile-nav {
+            display: none;
+            border: none;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .link-preview {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .preview-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            transition: opacity 0.2s;
+            border: 1px solid var(--border-color);
+        }
+
+        .preview-card img {
+            width: 100%;
+            height: 450px;
+            object-fit: cover;
+        }
+
+        .preview-info {
+            padding: 12px;
+        }
+
+        .preview-info h4 {
+            margin: 0;
+            font-size: 16px;
+            color: var(--text-color);
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        ::-webkit-scrollbar {
+            width: 5px;
+        }   
+
+        ::-webkit-scrollbar-track {
+            background: black;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #333;
+            border-radius: 5px;
+        }
+
+        .mobile-top-bar {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 50px;
+            background: var(--nav-bg);
+            z-index: 100;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .mobile-logo, .mobile-logo:link, .mobile-logo:visited {
+            font-size: 2rem;
+            font-weight: bold;
+            text-align: center;
+            margin-top: -13px;
+            font-family: 'Niramit', sans-serif;
+            letter-spacing: -2px;
+            color: #FFFFFF;
+            -webkit-text-stroke: 0.5px #FFFFFF;
+            text-decoration: none;
+            display: block;
+        }
+
+        .fab {
+            display: none;
+            position: fixed;
+            right: 20px;
+            bottom: 70px;
+            width: 56px;
+            height: 56px;
+            border-radius: 50%;
+            background: #ccccce;
+            z-index: 102;
+            justify-content: center;
+            align-items: center;
+            transition: transform 0.2s;
+        }
+
+        .fab:active {
+            transform: scale(0.95);
+        }
+
+        .mobile-content-filter-nav {
+            display: none;
+            position: fixed;
+            top: 48px;
+            left: 0;
+            width: 100%;
+            height: 45px;
+            background: var(--nav-bg);
+            border-bottom: 1px solid var(--border-color);
+            z-index: 99;
+            padding: 0;
+            transition: transform 0.3s ease;
+            align-items: center;
+            justify-content: center;
+            margin: 0;
+        }
+
+
+        @media (min-width: 1600px) {
+            .container {
+                grid-template-columns: 350px 1fr 350px;
+            }
+
+            .left-nav, .right-nav {
+                width: 350px;
+            }
+
+            .main-content {
+                max-width: 700px;
+            }
+
+            .site-logo, .site-logo:link, .site-logo:visited { 
+                font-size: 3rem;
+                left: 32%;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding-top: 85px; 
+                padding-bottom: 60px;
+            }
+            
+            .content-filter-nav{
+                display: none;
+            }
+            
+            .mobile-content-filter-nav {
+                display: flex;
+            }
+
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .left-nav, .right-nav {
+                display: none;
+                background: rgb(0, 0, 0);
+                position: fixed;
+                bottom: 0px;
+                left: 0;
+                width: 100%;
+                height: auto;
+                max-height: 100vh;
+                z-index: 100;
+                border-top: 1px solid #ffffff20;
+            }
+
+            .left-nav.active, .right-nav.active {
+                display: block;
+            }
+
+            .mobile-top-bar {
+                display: flex;
+            }
+
+            .fab {
+                display: flex;
+            }
+
+            .mobile-nav {
+                display: flex;
+                position: fixed;
+                height: 48px;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: rgb(0, 0, 0);
+                padding: 3.5px;
+                justify-content: space-around;
+                z-index: 101;
+            }
+
+            .mobile-nav a {
+                color: var(--text-color);
+                text-decoration: none;
+                font-size: 30px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mobile-icon.icon-casa {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .mobile-icon.icon-chat {
+                width: 28px;
+                height: 26px;
+            }
+            
+            .mobile-icon.icon-perfil {
+                width: 28px;
+                height: 28px;
+            }
+            
+            .mobile-icon.icon-lapiz {
+                width: 24px;
+                height: 24px;
+                transform: rotate(-10deg);
+            }
+            
+            .mobile-icon.icon-poster {
+                width: 26px;
+                height: 26px;
+            }
+
+            .main-content {
+                margin-top: 7px;
+                margin-bottom: 70px;
+            }
+            
+            .post-box {
+                margin-top: 0px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mobile-top-bar">
+        <a href="{% url 'us' %}" class="mobile-logo">posters</a>
+    </div>
+
+    <div class="mobile-content-filter-nav" id="mobile-content-filter">
+        <a href="#" class="content-filter-item active" id="mobile-all-content">Todo el mundo</a>
+        <a href="#" class="content-filter-item" id="mobile-popular-content">Popular</a>
+    </div>
+
+    <a href="#post-box" class="fab" id="fab-post">
+        <img src="/media/icons&art/LapízSF.png" alt="Post" class="icon-lapiz" id="fab-lapiz-icon" style="width: 24px; height: 24px;">
+    </a>
+
+    <div class="container">
+        <nav class="left-nav">
+            <a href="{% url 'us' %}" class="site-logo">posters</a>
+            
+            <div class="nav-links">
+                <a href="{% url 'home' %}" class="nav-item" id="home-link">
+                    <span class="nav-item-icon">
+                        {% if request.resolver_match.url_name == 'home' %}
+                        <img src="/media/icons&art/CasaCF.png" alt="Home" class="custom-icon icon-casa">
+                        {% else %}
+                        <img src="/media/icons&art/CasaSF.png" alt="Home" class="custom-icon icon-casa">
+                        {% endif %}
+                    </span> Inicio
+                </a>
+                <a href="#" class="nav-item" id="chat-link">
+                    <span class="nav-item-icon">
+                        <img src="/media/icons&art/chatSF.png" alt="Chat" class="custom-icon icon-chat">
+                    </span> Chat
+                </a>
+                <a href="{% url 'profile' username=request.user.username %}" class="nav-item" id="profile-link">
+                    <span class="nav-item-icon">
+                        {% if request.resolver_match.url_name == 'profile' %}
+                        <img src="/media/icons&art/PerfilCF.png" alt="Profile" class="custom-icon icon-perfil">
+                        {% else %}
+                        <img src="/media/icons&art/PerfilSF.png" alt="Profile" class="custom-icon icon-perfil">
+                        {% endif %}
+                    </span> Perfil
+                </a>
+                <a href="#post-box" class="post-nav" id="post-link">
+                    Postear
+                </a>
+            </div>
+        </nav>
+
+        <main class="main-content">
+            <div class="content-filter-nav" id="content-filter">
+                <a href="#" class="content-filter-item active" id="all-content">Todo el mundo</a>
+                <a href="#" class="content-filter-item" id="popular-content">Popular</a>
+            </div>
+            
+            <div id="post-box" class="post-box">
+                <form method="post" class="post-form" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <textarea name="content" class="post-input" placeholder="postea algo dale..."></textarea>
+                    <div id="post-text-preview"></div>
+                    <div class="post-input-actions">
+                    <div class="image-upload">
+                        <label for="image-input">
+                            📷
+                        </label>
+                        <input id="image-input" type="file" name="image" accept="image/*" style="display: none;">
+                        <span id="file-name"></span>
+                        <button type="button" id="removeImageButton" style="display: none;">X</button>
+                    </div>
+                    <button type="button" id="togglePreview" class="preview-toggle"> 
+                        preview
+                    </button>
+                    </div>
+                    <div id="preview-container">
+                        <img id="preview" src="#" alt="Previsualización de la imagen">
+                    </div>
+                    <button type="submit" class="post-button">Postear</button>
+                </form>
+            </div>
+
+            <div id="posts-container">
+                {% include 'core/posts_list.html' %}
+            </div>
+
+            {% if has_next %}
+            <div id="loading" style="display: none; text-align: center; padding: 20px;">
+                <div class="loading-spinner"></div>
+            </div>
+            <div id="intersection-observer"></div>
+            {% endif %}
+        </main>
+
+        <aside class="right-nav">
+            <h3>Posters:</h3>
+            {% for user in users %}
+            <a href="{% url 'profile' username=user.username %}" class="nav-item" style="text-decoration: none;">
+                <img src="{{ user.avatar }}" alt="{{ user.username }}" class="avatar" style="width: 30px; height: 30px;">
+                {{ user.username }}
+            </a>
+            {% endfor %}
+        </aside>
+    </div>
+
+    <nav class="mobile-nav">
+        <a href="{% url 'home' %}" id="mobile-home">
+            {% if request.resolver_match.url_name == 'home' %}
+            <img src="/media/icons&art/CasaCF.png" alt="Home" class="mobile-icon icon-casa">
+            {% else %}
+            <img src="/media/icons&art/CasaSF.png" alt="Home" class="mobile-icon icon-casa">
+            {% endif %}
+        </a>
+        
+        <a href="#" id="mobile-chat">
+            <img src="/media/icons&art/chatSF.png" alt="Chat" class="mobile-icon icon-chat">
+        </a>
+
+        <a href="{% url 'profile' username=request.user.username %}" id="mobile-profile">
+            {% if request.resolver_match.url_name == 'profile' %}
+            <img src="/media/icons&art/PerfilCF.png" alt="Profile" class="mobile-icon icon-perfil">
+            {% else %}
+            <img src="/media/icons&art/PerfilSF.png" alt="Profile" class="mobile-icon icon-perfil">
+            {% endif %}
+        </a>
+
+        <a href="#" onclick="toggleUsers(event)" id="mobile-users">
+            <img src="/media/icons&art/posterSF.png" alt="Users" class="mobile-icon icon-poster" id="users-icon">
+        </a>
+    </nav>
+
+    <script>
+        document.getElementById('image-input').addEventListener('change', function(event) {
+            const input = event.target;
+            const file = input.files[0];
+            const fileNameSpan = document.getElementById('file-name');
+            const previewImage = document.getElementById('preview');
+            const previewContainer = document.getElementById('preview-container');
+            const removeButton = document.getElementById('removeImageButton');
+            if (file) {
+                fileNameSpan.textContent = '📎 ' + file.name;
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.style.display = 'block';
+                }
+                reader.readAsDataURL(file);
+                removeButton.style.display = 'inline-block';
+            } else {
+                fileNameSpan.textContent = '';
+                previewContainer.style.display = 'none';
+                previewImage.src = '#';
+                removeButton.style.display = 'none';
+            }
+        });
+
+        document.getElementById('removeImageButton').addEventListener('click', function() {
+            const imageInput = document.getElementById('image-input');
+            imageInput.value = '';
+            document.getElementById('file-name').textContent = '';
+            document.getElementById('preview-container').style.display = 'none';
+            document.getElementById('preview').src = '#';
+            this.style.display = 'none';
+        });
+                
+        document.getElementById('image-input').onchange = function() {
+            document.getElementById('file-name').textContent = 
+                this.files[0] ? '📎 ' + this.files[0].name : '';
+        };
+
+        const postForm = document.querySelector('.post-form');
+        const postButton = document.querySelector('.post-button');
+
+        postForm.addEventListener('submit', function(e) {
+            if (postButton.disabled) {
+                e.preventDefault();
+                return;
+            }
+            postButton.disabled = true;
+            setTimeout(() => {
+                postButton.disabled = false;
+            }, 6000);
+        });
+
+        function toggleUsers(e) {
+            e.preventDefault();
+            const rightNav = document.querySelector('.right-nav');
+            const usersIcon = document.getElementById('users-icon');
+            
+            rightNav.classList.toggle('active');
+            
+            if (rightNav.classList.contains('active')) {
+                usersIcon.src = "/media/icons&art/postercF.png";
+            } else {
+                usersIcon.src = "/media/icons&art/posterSF.png";
+            }
+        }
+
+        const lapizIcon = document.getElementById('lapiz-icon');
+        const fabLapizIcon = document.getElementById('fab-lapiz-icon');
+        const postLink = document.getElementById('post-link');
+        const fabPost = document.getElementById('fab-post');
+        
+        let lastScrollTop = 0;
+        const contentFilter = document.getElementById('content-filter');
+        const mobileContentFilter = document.getElementById('mobile-content-filter');
+
+        window.addEventListener('scroll', function() {
+            let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrollTop > lastScrollTop && scrollTop > 50) {
+                contentFilter.style.transform = 'translateY(-100%)';
+                mobileContentFilter.style.transform = 'translateY(-100%)';
+            } else {
+                contentFilter.style.transform = 'translateY(0)';
+                mobileContentFilter.style.transform = 'translateY(0)';
+            }
+            lastScrollTop = scrollTop;
+        });
+
+        document.getElementById('all-content').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('popular-content').classList.remove('active');
+            document.getElementById('mobile-popular-content').classList.remove('active');
+            this.classList.add('active');
+            document.getElementById('mobile-all-content').classList.add('active');
+        });
+
+        document.getElementById('popular-content').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('all-content').classList.remove('active');
+            document.getElementById('mobile-all-content').classList.remove('active');
+            this.classList.add('active');
+            document.getElementById('mobile-popular-content').classList.add('active');
+        });
+
+        document.getElementById('mobile-all-content').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('mobile-popular-content').classList.remove('active');
+            document.getElementById('popular-content').classList.remove('active');
+            this.classList.add('active');
+            document.getElementById('all-content').classList.add('active');
+        });
+
+        document.getElementById('mobile-popular-content').addEventListener('click', function(e) {
+            e.preventDefault();
+            document.getElementById('mobile-all-content').classList.remove('active');
+            document.getElementById('all-content').classList.remove('active');
+            this.classList.add('active');
+            document.getElementById('popular-content').classList.add('active');
+        });
+
+        let currentPage = 1;
+        let loading = false;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const postsContainer = document.getElementById('posts-container');
+            const loadingElement = document.getElementById('loading');
+            const observer = document.getElementById('intersection-observer');
+
+            function adjustFilterBar() {
+                const mainContent = document.querySelector('.main-content');
+                const leftNav = document.querySelector('.left-nav');
+                
+                if (window.innerWidth <= 768) {
+                    contentFilter.style.display = 'none';
+                    return;
+                }
+                
+                const mainRect = mainContent.getBoundingClientRect();
+                contentFilter.style.width = mainRect.width + 'px';
+                contentFilter.style.left = mainRect.left + 'px';
+                contentFilter.style.display = 'flex';
+            }
+            
+            adjustFilterBar();
+            window.addEventListener('resize', adjustFilterBar);
+
+            if (observer) {
+                const intersectionObserver = new IntersectionObserver((entries) => {
+                    if (entries[0].isIntersecting && !loading) {
+                        loadMorePosts();
+                    }
+                });
+
+                intersectionObserver.observe(observer);
+            }
+
+            function loadMorePosts() {
+                if (loading) return;
+                loading = true;
+                currentPage++;
+                loadingElement.style.display = 'block';
+
+                fetch(`?page=${currentPage}`, {
+                    headers: {
+                        'HX-Request': 'true'
+                    }
+                })
+                .then(response => response.text())
+                .then(html => {
+                    if (html.trim()) {
+                        const tempContainer = document.createElement('div');
+                        tempContainer.innerHTML = html;
+                        postsContainer.appendChild(tempContainer);
+                        initializeLikeButtons(tempContainer);
+                    } else {
+                        observer.disconnect();
+                        loadingElement.style.display = 'none';
+                        const endMessage = document.createElement('div');
+                        endMessage.className = 'text-center text-gray-500 py-4';
+                        endMessage.textContent = 'No hay más posts';
+                        postsContainer.appendChild(endMessage);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                })
+                .finally(() => {
+                    loading = false;
+                    loadingElement.style.display = 'none';
+                });
+            }
+
+            function initializeLikeButtons(container) {
+                container.querySelectorAll('.like-btn').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const postId = this.dataset.postId;
+                        const likeIcon = this.querySelector('img');
+                        
+                        fetch(`/post/${postId}/like/`, {
+                            method: 'POST',
+                            headers: {
+                                'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value
+                            }
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            const likesCount = this.querySelector('.likes-count');
+                            likesCount.textContent = data.likes_count;
+                            this.classList.toggle('liked', data.liked);
+                            
+                            if (data.liked) {
+                                likeIcon.src = "/media/icons&art/likeCF.png";
+                            } else {
+                                likeIcon.src = "/media/icons&art/likeSF.png";
+                            }
+                        });
+                    });
+                });
+            }
+
+            initializeLikeButtons(postsContainer);
+        });
+        const postInput = document.querySelector('.post-input');
+        const postTextPreview = document.getElementById('post-text-preview');
+        const togglePreviewBtn = document.getElementById('togglePreview');
+        let previewEnabled = false;
+        togglePreviewBtn.addEventListener('click', function() {
+            previewEnabled = !previewEnabled;
+            togglePreviewBtn.classList.toggle('active');
+            if (!previewEnabled) {
+                postTextPreview.style.display = 'none';
+            } else if (postInput.value.trim().length > 0) {
+                updatePreview();
+            }
+        });
+
+        postInput.addEventListener('input', function() {
+            if (previewEnabled) {
+                updatePreview();
+            }
+        });
+
+        function updatePreview() {
+            let text = postInput.value;
+            if (text.trim().length > 0) {
+                let formatted = text.replace(/\*\*(.*?)\*\*/g, '<strong style="display:inline">$1</strong>');
+                formatted = formatted.replace(/\n/g, '<br>');
+                postTextPreview.innerHTML = formatted;
+                postTextPreview.style.display = 'block';
+            } else {
+                postTextPreview.innerHTML = '';
+                postTextPreview.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
